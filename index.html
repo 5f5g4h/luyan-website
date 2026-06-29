@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东阿阿韵药业 — 传承千年 匠心古法</title>
+<style>
+/* ========== Reset & Base ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: "Noto Serif SC", "SimSun", "STSong", serif;
+  color: #3a2a1a;
+  background: #faf6f0;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; transition: color .3s; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+/* ========== Color Tokens ========== */
+:root {
+  --red:       #8b1a1a;
+  --red-dark:  #5c0e0e;
+  --gold:      #c9a84c;
+  --gold-light:#e8d59a;
+  --ink:       #2c1810;
+  --ink-light: #5a3e2b;
+  --bg:        #faf6f0;
+  --bg-warm:   #f3ece0;
+  --bg-dark:   #1a0f0a;
+  --card:      #fffdf8;
+  --border:    #d4c5a0;
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-warm); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+/* ========== Navigation ========== */
+.navbar {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px; height: 72px;
+  background: rgba(26,15,10,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(201,168,76,.3);
+  transition: all .4s;
+}
+.navbar.scrolled { height: 60px; background: rgba(26,15,10,.98); }
+.nav-brand {
+  display: flex; align-items: center; gap: 12px;
+}
+.nav-brand .seal {
+  width: 42px; height: 42px; border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--gold); font-weight: bold;
+  letter-spacing: 2px; line-height: 1;
+}
+.nav-brand .brand-text {
+  color: var(--gold-light); font-size: 22px; letter-spacing: 6px;
+}
+.nav-links { display: flex; gap: 6px; }
+.nav-links a {
+  color: var(--gold-light); font-size: 15px; padding: 8px 18px;
+  letter-spacing: 3px; position: relative;
+  transition: color .3s, background .3s;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: #fff; background: rgba(201,168,76,.15);
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 2px; background: var(--gold); transition: width .3s;
+}
+.nav-links a:hover::after { width: 60%; }
+.nav-phone {
+  color: var(--gold); font-size: 18px; letter-spacing: 2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-phone .phone-icon {
+  width: 24px; height: 24px; border: 1.5px solid var(--gold); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 12px;
+}
+
+/* Mobile nav toggle */
+.nav-toggle { display: none; cursor: pointer; }
+.nav-toggle span {
+  display: block; width: 24px; height: 2px; background: var(--gold);
+  margin: 5px 0; transition: .3s;
+}
+
+/* ========== Hero Banner ========== */
+.hero {
+  position: relative; height: 100vh; min-height: 640px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+    background:
+    linear-gradient(135deg, rgba(26,15,10,.85) 0%, rgba(92,14,14,.7) 50%, rgba(26,15,10,.85) 100%),
+    url('images/hero-bg.jpg') center/cover no-repeat;
+}
+.hero-pattern {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(201,168,76,.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(201,168,76,.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-content {
+  position: relative; z-index: 2; text-align: center; color: #fff;
+  animation: heroFadeIn 1.5s ease-out;
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-badge {
+  display: inline-block; padding: 6px 24px; margin-bottom: 24px;
+  border: 1px solid var(--gold); color: var(--gold-light);
+  font-size: 14px; letter-spacing: 6px;
+}
+.hero h1 {
+  font-size: 64px; letter-spacing: 16px; font-weight: 400;
+  margin-bottom: 16px; color: var(--gold-light);
+  text-shadow: 0 2px 20px rgba(201,168,76,.3);
+}
+.hero .sub {
+  font-size: 20px; letter-spacing: 8px; color: rgba(232,213,154,.8);
+  margin-bottom: 40px;
+}
+.hero-divider {
+  width: 120px; height: 1px; background: var(--gold);
+  margin: 0 auto 40px; position: relative;
+}
+.hero-divider::before {
+  content: '◆'; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%); color: var(--gold);
+  background: transparent; font-size: 12px;
+}
+.hero-cta {
+  display: inline-block; padding: 14px 48px;
+  border: 1px solid var(--gold); color: var(--gold-light);
+  font-size: 15px; letter-spacing: 4px;
+  transition: all .4s;
+}
+.hero-cta:hover {
+  background: var(--gold); color: var(--ink);
+}
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  color: var(--gold-light); font-size: 12px; letter-spacing: 3px;
+  animation: scrollBounce 2s infinite;
+}
+.hero-scroll .arrow { display: block; margin: 8px auto 0; width: 16px; height: 16px;
+  border-right: 1.5px solid var(--gold-light); border-bottom: 1.5px solid var(--gold-light);
+  transform: rotate(45deg);
+}
+@keyframes scrollBounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%     { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ========== Section Common ========== */
+.section {
+  padding: 100px 60px;
+  position: relative;
+}
+.section-header {
+  text-align: center; margin-bottom: 60px;
+}
+.section-header .tag {
+  display: inline-block; padding: 4px 20px;
+  border: 1px solid var(--border); color: var(--gold);
+  font-size: 13px; letter-spacing: 4px; margin-bottom: 20px;
+}
+.section-header h2 {
+  font-size: 36px; font-weight: 400; letter-spacing: 8px;
+  color: var(--ink); margin-bottom: 12px;
+}
+.section-header .line {
+  width: 80px; height: 1px; background: var(--gold);
+  margin: 0 auto;
+}
+.section-header .en {
+  font-size: 13px; color: var(--ink-light); letter-spacing: 3px;
+  margin-top: 8px; opacity: .6;
+}
+
+/* ========== About Section ========== */
+.about {
+  background: var(--bg);
+}
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; max-width: 1280px; margin: 0 auto;
+  align-items: center;
+}
+.about-img {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 4/3;
+}
+.about-img-inner {
+  width: 100%; height: 100%;
+  background: url('images/about.jpg') center/cover no-repeat;
+  transition: transform .6s;
+}
+.about-img:hover .about-img-inner { transform: scale(1.05); }
+.about-img .frame {
+  position: absolute; inset: 12px; border: 1px solid rgba(201,168,76,.4);
+  pointer-events: none;
+}
+.about-text h3 {
+  font-size: 28px; font-weight: 400; letter-spacing: 4px;
+  color: var(--ink); margin-bottom: 8px;
+}
+.about-text .subline {
+  font-size: 15px; color: var(--red); letter-spacing: 2px;
+  margin-bottom: 24px; padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.about-text p {
+  font-size: 16px; color: var(--ink-light); line-height: 2;
+  margin-bottom: 16px; text-indent: 2em;
+}
+.about-stats {
+  display: flex; gap: 40px; margin-top: 32px;
+}
+.stat-item { text-align: center; }
+.stat-item .num {
+  font-size: 36px; color: var(--red); font-weight: bold;
+  letter-spacing: 2px;
+}
+.stat-item .label {
+  font-size: 13px; color: var(--ink-light); letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+/* ========== Products Section ========== */
+.products {
+  background: var(--bg-warm);
+}
+.products-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 36px; max-width: 860px; margin: 0 auto;
+}
+.product-card {
+  background: var(--card); border: 1px solid var(--border);
+  overflow: hidden; transition: transform .4s, box-shadow .4s;
+  position: relative;
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(44,24,16,.12);
+}
+.product-img {
+  overflow: hidden; position: relative; display: flex; flex-direction: column;
+}
+.product-img .product-front {
+  width: 100%; aspect-ratio: 4/3; object-fit: contain;
+  background: var(--bg-warm); padding: 20px;
+}
+.product-img .product-back {
+  width: 100%; aspect-ratio: 4/3; object-fit: contain;
+  background: #f0ebe0; padding: 20px; border-top: 1px solid var(--border);
+}
+.product-img img {
+  width: 100%; height: 100%; object-fit: contain;
+  transition: transform .6s;
+}
+.product-card:hover .product-front img { transform: scale(1.05); }
+.product-card:hover .product-back img { transform: scale(1.05); }
+.product-img .corner-tl, .product-img .corner-br {
+  position: absolute; width: 24px; height: 24px;
+  border-color: var(--gold); border-style: solid;
+}
+.product-img .corner-tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; }
+.product-img .corner-br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
+.product-info { padding: 28px 24px; text-align: center; }
+.product-info h3 {
+  font-size: 22px; font-weight: 400; letter-spacing: 4px;
+  color: var(--ink); margin-bottom: 8px;
+}
+.product-info .price {
+  font-size: 18px; color: var(--red); letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.product-info .spec {
+  font-size: 13px; color: var(--ink-light); letter-spacing: 1px;
+}
+.product-info .btn {
+  display: inline-block; margin-top: 20px; padding: 10px 32px;
+  border: 1px solid var(--red); color: var(--red);
+  font-size: 13px; letter-spacing: 3px; transition: all .3s;
+}
+.product-info .btn:hover {
+  background: var(--red); color: #fff;
+}
+.product-badge {
+  display: inline-block; margin-top: 10px; padding: 4px 14px;
+  border: 1px solid var(--gold); background: rgba(201,168,76,.08);
+  color: var(--red-dark); font-size: 12px; letter-spacing: 2px;
+}
+
+/* ========== Gallery Section ========== */
+.gallery {
+  background: var(--bg-dark); color: #fff;
+}
+.gallery .section-header h2 { color: var(--gold-light); }
+.gallery .section-header .en { color: rgba(232,213,154,.5); }
+.gallery .section-header .tag { border-color: rgba(201,168,76,.4); color: var(--gold-light); }
+.gallery .section-header .line { background: var(--gold); }
+
+.gallery-track-wrap {
+  overflow: hidden; position: relative; max-width: 100%;
+  margin: 0 auto;
+}
+.gallery-track {
+  display: flex; gap: 24px;
+  animation: galleryScroll 30s linear infinite;
+  width: max-content;
+}
+.gallery-track:hover { animation-play-state: paused; }
+@keyframes galleryScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.gallery-item {
+  flex-shrink: 0; width: 320px; height: 220px;
+  overflow: hidden; border: 1px solid rgba(201,168,76,.2);
+  position: relative; transition: border-color .3s;
+}
+.gallery-item:hover { border-color: var(--gold); }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s, filter .6s;
+  filter: brightness(.8) saturate(.9);
+}
+.gallery-item:hover img {
+  transform: scale(1.1); filter: brightness(1) saturate(1);
+}
+
+/* ========== Heritage Section ========== */
+.heritage {
+  background: var(--bg);
+}
+.heritage-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 36px; max-width: 1280px; margin: 0 auto;
+}
+.heritage-card {
+  padding: 40px 28px; text-align: center;
+  border: 1px solid var(--border); background: var(--card);
+  transition: all .4s; position: relative;
+}
+.heritage-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 32px rgba(201,168,76,.12);
+}
+.heritage-card .icon {
+  width: 64px; height: 64px; margin: 0 auto 20px;
+  border: 1px solid var(--gold); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; color: var(--gold);
+}
+.heritage-card h3 {
+  font-size: 20px; letter-spacing: 4px; color: var(--ink);
+  margin-bottom: 12px; font-weight: 400;
+}
+.heritage-card p {
+  font-size: 14px; color: var(--ink-light); line-height: 1.9;
+}
+
+/* ========== Footer ========== */
+.footer {
+  background: var(--bg-dark); color: rgba(232,213,154,.7);
+  padding: 60px 60px 0;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px; max-width: 1280px; margin: 0 auto;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(201,168,76,.15);
+}
+.footer-brand .name {
+  font-size: 24px; color: var(--gold-light); letter-spacing: 6px;
+  margin-bottom: 12px;
+}
+.footer-brand .desc {
+  font-size: 14px; line-height: 1.9; max-width: 360px;
+}
+.footer-col h4 {
+  font-size: 15px; color: var(--gold-light); letter-spacing: 3px;
+  margin-bottom: 16px; font-weight: 400;
+}
+.footer-col a {
+  display: block; font-size: 14px; color: rgba(232,213,154,.6);
+  padding: 4px 0; transition: color .3s; letter-spacing: 1px;
+}
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom {
+  text-align: center; padding: 24px 0;
+  font-size: 13px; color: rgba(232,213,154,.35);
+  letter-spacing: 1px;
+}
+
+/* ========== Back to Top ========== */
+.back-top {
+  position: fixed; bottom: 40px; right: 40px; z-index: 999;
+  width: 44px; height: 44px; border: 1px solid var(--gold);
+  background: rgba(26,15,10,.9); color: var(--gold-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; cursor: pointer; opacity: 0; visibility: hidden;
+  transition: all .3s;
+}
+.back-top.show { opacity: 1; visibility: visible; }
+.back-top:hover { background: var(--gold); color: var(--ink); }
+
+/* ========== Animations ========== */
+.fade-up {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .8s, transform .8s;
+}
+.fade-up.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ========== Product Detail Modal ========== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(26,15,10,.92);
+  display: none; align-items: center; justify-content: center;
+  padding: 40px 20px; opacity: 0; transition: opacity .4s;
+}
+.modal-overlay.active { display: flex; opacity: 1; }
+.modal-box {
+  background: var(--card); border: 1px solid var(--border);
+  max-width: 900px; width: 100%; max-height: 90vh;
+  overflow-y: auto; position: relative;
+  animation: modalIn .4s ease-out;
+}
+@keyframes modalIn {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+.modal-close {
+  position: absolute; top: 16px; right: 20px; z-index: 10;
+  width: 36px; height: 36px; border: 1px solid var(--gold);
+  background: var(--bg-dark); color: var(--gold-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; cursor: pointer; transition: all .3s;
+}
+.modal-close:hover { background: var(--gold); color: var(--ink); }
+.modal-header {
+  padding: 28px 32px 16px; border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.modal-header h3 {
+  font-size: 24px; font-weight: 400; letter-spacing: 6px;
+  color: var(--ink);
+}
+.modal-header .en {
+  font-size: 13px; color: var(--ink-light); opacity: .6;
+  letter-spacing: 2px; margin-top: 4px;
+}
+.modal-body {
+  padding: 24px 32px;
+}
+.modal-body img {
+  width: 100%; border: 1px solid var(--border); margin-bottom: 20px;
+}
+.modal-nav {
+  display: flex; gap: 12px; justify-content: center; margin-top: 20px;
+  padding-top: 20px; border-top: 1px solid var(--border);
+}
+.modal-nav button {
+  padding: 8px 20px; border: 1px solid var(--border);
+  background: var(--bg); color: var(--ink-light);
+  font-size: 14px; letter-spacing: 2px; cursor: pointer;
+  transition: all .3s;
+}
+.modal-nav button:hover, .modal-nav button.active {
+  background: var(--gold); color: var(--ink); border-color: var(--gold);
+}
+.img-hint {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  background: rgba(26,15,10,.85); color: var(--gold-light);
+  padding: 6px 16px; font-size: 12px; letter-spacing: 2px;
+  border: 1px solid var(--gold); opacity: 0; transition: opacity .3s;
+  pointer-events: none; white-space: nowrap;
+}
+.product-img:hover .img-hint { opacity: 1; }
+
+/* ========== Responsive ========== */
+@media (max-width: 1024px) {
+  .section { padding: 80px 30px; }
+  .navbar { padding: 0 30px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .heritage-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .hero h1 { font-size: 36px; letter-spacing: 8px; }
+  .hero .sub { font-size: 15px; letter-spacing: 4px; }
+  .section { padding: 60px 20px; }
+  .section-header h2 { font-size: 26px; letter-spacing: 4px; }
+  .navbar { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-phone { display: none; }
+  .nav-toggle { display: block; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: absolute; top: 72px; left: 0; width: 100%;
+    background: rgba(26,15,10,.98); padding: 20px;
+    border-top: 1px solid rgba(201,168,76,.2);
+  }
+  .products-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .heritage-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .about-stats { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====== Navigation ====== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <div class="seal">璐</div>
+    <span class="brand-text">璐颜</span>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" class="active">首页</a>
+      <a href="#about">关于阿韵</a>
+    <a href="#products">核心产品</a>
+    <a href="#heritage">古法传承</a>
+    <a href="#gallery">匠心视界</a>
+    <a href="#contact">联系我们</a>
+  </div>
+  <div class="nav-phone">
+    <span class="phone-icon">☎</span>
+    400-888-6688
+  </div>
+  <div class="nav-toggle" id="navToggle" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ====== Hero ====== -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-badge">◆ 东阿阿韵药业 · 璐颜品牌 ◆</div>
+    <h1>璐 颜</h1>
+    <p class="sub">东阿阿韵药业 · 古法膏方 · 匠心品质</p>
+    <div class="hero-divider"></div>
+    <a href="#products" class="hero-cta">探寻珍品</a>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <span class="arrow"></span>
+  </div>
+</section>
+
+<!-- ====== About ====== -->
+<section class="section about" id="about">
+  <div class="section-header fade-up">
+    <div class="tag">◆ ABOUT US ◆</div>
+    <h2>关于阿韵</h2>
+    <div class="line"></div>
+    <div class="en">DONG'E AYUN PHARMACEUTICAL</div>
+  </div>
+  <div class="about-grid">
+    <div class="about-img fade-up">
+      <div class="about-img-inner"></div>
+      <div class="frame"></div>
+    </div>
+    <div class="about-text fade-up">
+      <h3>百年匠心 古法传承</h3>
+      <div class="subline">—— 东阿阿韵药业，源自中国阿胶之乡 ——</div>
+      <p>东阿阿韵药业有限公司坐落于中国阿胶之乡——山东东阿，依托道地阿胶资源与深厚中医药文化底蕴，始终秉承"选材必精、工艺必诚"的宗旨，以古法炮制为核心，将千年技艺融于每一件作品之中。</p>
+      <p>公司占地面积百余亩，拥有标准化GMP认证生产车间与现代化综合办公楼，荣获省级非物质文化遗产代表性项目认定，是行业内在古法工艺保护与传承方面的标杆企业。</p>
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="num">126</div>
+          <div class="label">年匠心传承</div>
+        </div>
+        <div class="stat-item">
+          <div class="num">6</div>
+          <div class="label">代技艺传承</div>
+        </div>
+        <div class="stat-item">
+          <div class="num">36</div>
+          <div class="label">道古法工序</div>
+        </div>
+        <div class="stat-item">
+          <div class="num">9</div>
+          <div class="label">项非遗荣誉</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== Products ====== -->
+<section class="section products" id="products">
+  <div class="section-header fade-up">
+    <div class="tag">◆ PRODUCTS ◆</div>
+    <h2>璐颜产品</h2>
+    <div class="line"></div>
+    <div class="en">Luyan Products</div>
+  </div>
+  <div class="products-grid">
+    <div class="product-card fade-up">
+      <div class="product-img" onclick="openModal('modal1')">
+        <img src="images/product1-front.jpg" alt="璐颜 杜仲牡蛎膏" class="product-front">
+        <div class="corner-tl"></div>
+        <div class="corner-br"></div>
+        <div class="img-hint">点击查看详情</div>
+      </div>
+      <div class="product-info">
+        <h3>杜仲牡蛎膏</h3>
+        <div class="price">￥2,980.00/盒</div>
+        <div class="spec">古法熬制 · 道地药材</div>
+        <div class="product-badge">◆ 非物质文化遗产</div>
+        <a href="#" class="btn" onclick="openModal('modal1'); return false;">了解详情</a>
+      </div>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-img" onclick="openModal('modal2')">
+        <img src="images/product2-front.jpg" alt="璐颜 百合酸枣膏" class="product-front">
+        <div class="corner-tl"></div>
+        <div class="corner-br"></div>
+        <div class="img-hint">点击查看详情</div>
+      </div>
+      <div class="product-info">
+        <h3>百合酸枣膏</h3>
+        <div class="price">￥2,980.00/盒</div>
+        <div class="spec">古法熬制 · 道地药材</div>
+        <div class="product-badge">◆ 非物质文化遗产</div>
+        <a href="#" class="btn" onclick="openModal('modal2'); return false;">了解详情</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== Heritage ====== -->
+<section class="section heritage" id="heritage">
+  <div class="section-header fade-up">
+    <div class="tag">◆ HERITAGE ◆</div>
+    <h2>古法传承</h2>
+    <div class="line"></div>
+    <div class="en">TRADITIONAL CRAFTSMANSHIP</div>
+  </div>
+  <div class="heritage-grid">
+    <div class="heritage-card fade-up">
+      <div class="icon">泉水</div>
+      <h3>东阿水·道地之源</h3>
+      <p>取东阿地下深层水，比重高达1.0038，富含多种微量元素，为古法炮制之根本，非此水不可成胶。</p>
+    </div>
+    <div class="heritage-card fade-up">
+      <div class="icon">炼</div>
+      <h3>九九炼胶·古法精制</h3>
+      <p>历经九提九炙、九昼九夜，三十六道工序层层把关，从浸皮到出胶，每一步皆依古训、不敢懈怠。</p>
+    </div>
+    <div class="heritage-card fade-up">
+      <div class="icon">传</div>
+      <h3>六代传承·匠心守望</h3>
+      <p>自光绪二十四年至今，六代匠人口传心授，将千年技艺薪火相传，守护每一份道地品质。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== Gallery ====== -->
+<section class="section gallery" id="gallery">
+  <div class="section-header fade-up">
+    <div class="tag">◆ GALLERY ◆</div>
+    <h2>匠心视界</h2>
+    <div class="line"></div>
+    <div class="en">CRAFTSMANSHIP GALLERY</div>
+  </div>
+  <div class="gallery-track-wrap">
+    <div class="gallery-track">
+      <div class="gallery-item"><img src="images/gallery1.jpg" alt="古法熬制"></div>
+      <div class="gallery-item"><img src="images/gallery2.jpg" alt="草本膏方"></div>
+      <div class="gallery-item"><img src="images/about.jpg" alt="道地药材"></div>
+      <div class="gallery-item"><img src="images/heritage.jpg" alt="贵族吃膏方"></div>
+      <div class="gallery-item"><img src="images/hero-bg.jpg" alt="传统工艺"></div>
+      <div class="gallery-item"><img src="images/gallery1.jpg" alt="古法熬制"></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="gallery-item"><img src="images/gallery1.jpg" alt="古法熬制"></div>
+      <div class="gallery-item"><img src="images/gallery2.jpg" alt="草本膏方"></div>
+      <div class="gallery-item"><img src="images/about.jpg" alt="道地药材"></div>
+      <div class="gallery-item"><img src="images/heritage.jpg" alt="贵族吃膏方"></div>
+      <div class="gallery-item"><img src="images/hero-bg.jpg" alt="传统工艺"></div>
+      <div class="gallery-item"><img src="images/gallery1.jpg" alt="古法熬制"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== Product Detail Modals ====== -->
+<div class="modal-overlay" id="modal1" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-close" onclick="closeModalDirect('modal1')">×</div>
+    <div class="modal-header">
+      <h3>杜仲牡蛎膏</h3>
+      <div class="en">Duzhong Oyster Paste · Intangible Cultural Heritage</div>
+    </div>
+    <div class="modal-body">
+      <img src="images/product1-detail-1.png" alt="杜仲牡蛎膏 - 君臣佐使配伍">
+      <img src="images/product1-detail-2.png" alt="杜仲牡蛎膏 - 核心成分解析">
+      <img src="images/product1-detail-3.png" alt="杜仲牡蛎膏 - 适用人群">
+      <div class="modal-nav">
+        <button class="active" onclick="switchModalImg(this,0)">配伍图解</button>
+        <button onclick="switchModalImg(this,1)">成分解析</button>
+        <button onclick="switchModalImg(this,2)">适用人群</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal2" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-close" onclick="closeModalDirect('modal2')">×</div>
+    <div class="modal-header">
+      <h3>百合酸枣膏</h3>
+      <div class="en">Lily Jujube Paste · Intangible Cultural Heritage</div>
+    </div>
+    <div class="modal-body">
+      <img src="images/product2-detail-1.png" alt="百合酸枣膏 - 君臣佐使配伍">
+      <img src="images/product2-detail-2.png" alt="百合酸枣膏 - 核心成分解析">
+      <img src="images/product2-detail-3.png" alt="百合酸枣膏 - 适用人群">
+      <div class="modal-nav">
+        <button class="active" onclick="switchModalImg(this,0)">配伍图解</button>
+        <button onclick="switchModalImg(this,1)">成分解析</button>
+        <button onclick="switchModalImg(this,2)">适用人群</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== Footer ====== -->
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="name">璐 颜</div>
+      <div class="desc">东阿阿韵药业旗下品牌。百年匠心传承，古法膏方典范。璐颜始终秉承"选材必精、工艺必诚"之宗旨，以道地品质守护千年文化瑰宝。</div>
+    </div>
+    <div class="footer-col">
+      <h4>快速导航</h4>
+      <a href="#home">首页</a>
+    <a href="#about">关于阿韵</a>
+      <a href="#products">核心产品</a>
+      <a href="#heritage">古法传承</a>
+    </div>
+    <div class="footer-col">
+      <h4>产品系列</h4>
+      <a href="#">杜仲牡蛎膏</a>
+      <a href="#">百合酸枣膏</a>
+    </div>
+    <div class="footer-col">
+      <h4>联系我们</h4>
+      <a href="#">电话：400-888-6688</a>
+      <a href="#">邮箱：info@dongeaayun.com</a>
+      <a href="#">地址：山东省东阿县工业园区</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2024 东阿阿韵药业有限公司 版权所有 · 鲁ICP备XXXXXXXX号
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+const backTop = document.getElementById('backTop');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  navbar.classList.toggle('scrolled', y > 80);
+  backTop.classList.toggle('show', y > 600);
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id], .hero');
+  let current = '';
+  sections.forEach(s => {
+    if (s.offsetTop - 200 <= y) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// Smooth scroll for nav links
+navLinks.forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('navLinks').classList.remove('open');
+    }
+  });
+});
+
+// Fade-up animation on scroll
+const fadeEls = document.querySelectorAll('.fade-up');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+fadeEls.forEach(el => observer.observe(el));
+
+// Modal functions
+function openModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    // Reset images
+    const imgs = modal.querySelectorAll('.modal-body img');
+    imgs.forEach((img, i) => { img.style.display = i === 0 ? 'block' : 'none'; });
+    // Reset buttons
+    const btns = modal.querySelectorAll('.modal-nav button');
+    btns.forEach((btn, i) => { btn.classList.toggle('active', i === 0); });
+  }
+}
+
+function closeModalDirect(id) {
+  const modal = document.getElementById(id);
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+function closeModal(event) {
+  if (event.target === event.currentTarget) {
+    event.target.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+function switchModalImg(btn, index) {
+  const modal = btn.closest('.modal-box');
+  const imgs = modal.querySelectorAll('.modal-body img');
+  const btns = modal.querySelectorAll('.modal-nav button');
+  imgs.forEach((img, i) => { img.style.display = i === index ? 'block' : 'none'; });
+  btns.forEach((b, i) => { b.classList.toggle('active', i === index); });
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(m => {
+      m.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  }
+});
+</script>
+</body>
+</html>
